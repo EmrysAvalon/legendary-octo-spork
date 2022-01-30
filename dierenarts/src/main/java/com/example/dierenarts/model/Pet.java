@@ -1,15 +1,20 @@
 package com.example.dierenarts.model;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Entity
+@Table(name = "pets")
 public class Pet {
 
     //attributes
-    Long ID;
-    String name;
-    LocalDate dateOfBirth;
-    String owner;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
+    private LocalDate dateOfBirth;
+    private String owner;
 
     //Empty constructor
     public Pet() {
@@ -23,8 +28,8 @@ public class Pet {
     }
 
     //Getters
-    public Long getID() {
-        return ID;
+    public Long getId() {
+        return id;
     }
 
     public String getName() {
