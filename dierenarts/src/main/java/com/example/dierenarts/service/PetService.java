@@ -1,9 +1,12 @@
 package com.example.dierenarts.service;
 
+import com.example.dierenarts.exception.RecordNotFoundException;
 import com.example.dierenarts.model.Pet;
 import com.example.dierenarts.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class PetService {
@@ -16,7 +19,13 @@ public class PetService {
     }
 
     public Pet getPet(Long id) {
-        return repository.findById(id).orElse(null);
+        Optional<Pet> optionalPet = repository.findById(id);
+
+        if (optionalPet.isPresent()) {
+            return optionalPet.get();
+        } else {
+            throw new RecordNotFoundException("There is no pet with this id.");
+        }
     }
 
     public void deletePet(Long id) {
