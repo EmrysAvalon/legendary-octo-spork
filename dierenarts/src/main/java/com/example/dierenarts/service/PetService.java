@@ -14,8 +14,12 @@ public class PetService {
     @Autowired
     private PetRepository repository;
 
-    public Iterable<Pet> getPets() {
-        return repository.findAll();
+    public Iterable<Pet> getPets(String name) {
+        if (name.isEmpty()) {
+            return repository.findAll();
+        } else {
+            return repository.findAllByNameContainingIgnoreCase(name);
+        }
     }
 
     public Pet getPet(Long id) {

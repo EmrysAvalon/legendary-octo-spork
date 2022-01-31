@@ -25,8 +25,8 @@ public class PetController {
     private PetService service;
 
     @GetMapping(value = "/pets")
-    public ResponseEntity<Object> getPets() {
-        return ResponseEntity.ok(service.getPets());
+    public ResponseEntity<Object> getPets(@RequestParam(name = "name", defaultValue = "") String name) {
+        return ResponseEntity.ok(service.getPets(name));
     }
 
     @GetMapping(value = "/pets/{id}")
