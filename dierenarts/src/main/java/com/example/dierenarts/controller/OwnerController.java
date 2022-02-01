@@ -1,6 +1,7 @@
 package com.example.dierenarts.controller;
 
 import com.example.dierenarts.dto.OwnerRequestDto;
+import com.example.dierenarts.model.Pet;
 import com.example.dierenarts.service.OwnerService;
 import com.example.dierenarts.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,11 @@ public class OwnerController {
                 .buildAndExpand(newId).toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @GetMapping(value = "/owners/{id}/pets")
+    public ResponseEntity<Object> getOwnerPets(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getOwnerPets(id));
     }
 
 }

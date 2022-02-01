@@ -11,11 +11,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+import static java.lang.Long.parseLong;
+
 @Service
 public class PetService {
 
     @Autowired
     private PetRepository repository;
+    private OwnerService ownerService;
 
     public Iterable<Pet> getPets(String name) {
         if (name.isEmpty()) {
@@ -25,8 +28,8 @@ public class PetService {
         }
     }
 
-    public Iterable<Pet> getPetsByOwner(String owner) {
-        return repository.findAllByOwner(owner);
+    public Iterable<Pet> getPetsByOwner(Long ownerId) {
+        return repository.findAllByOwner(ownerService.getOwner(ownerId));
     }
 
     public Pet getPet(Long id) {
@@ -51,8 +54,7 @@ public class PetService {
         Pet pet = new Pet();
         pet.setName(petRequestDto.getName());
         pet.setDateOfBirth(LocalDate.parse(petRequestDto.getDateOfBirth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-        pet.setOwner("Tanja");
-
+        pet.setOwner(ownerService.getOwner(parseLong(petRequestDto.getOwnerId())));
         Pet newPet = repository.save(pet);
         return newPet.getId();
     }
@@ -73,7 +75,7 @@ public class PetService {
             }
             repository.save(existingPet);
         } else {
-            throw new RecordNotFoundException("There is no pet with this id");
+            throw new RecordNotFoundException("There is no pet with this id.");
         }
     }
 

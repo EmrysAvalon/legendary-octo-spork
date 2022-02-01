@@ -1,5 +1,7 @@
 package com.example.dierenarts.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
@@ -14,17 +16,15 @@ public class Pet {
     private Long id;
     private String name;
     private LocalDate dateOfBirth;
-    private String owner;
+
+    @JsonIgnoreProperties("pets")
+    @ManyToOne
+    @JoinColumn(name = "owner_id", referencedColumnName = "id")
+    private Owner owner;
 
     //Empty constructor
     public Pet() {
 
-    }
-    //Constructor for easy creation of a pet.
-    public Pet(String name, LocalDate dateOfBirth, String owner){
-        this.name = name;
-        this.dateOfBirth = dateOfBirth;
-        this.owner = owner;
     }
 
     //Getters
@@ -40,7 +40,7 @@ public class Pet {
         return dateOfBirth;
     }
 
-    public String getOwner() {
+    public Owner getOwner() {
         return owner;
     }
 
@@ -53,7 +53,7 @@ public class Pet {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void setOwner(String owner) {
+    public void setOwner(Owner owner) {
         this.owner = owner;
     }
 }

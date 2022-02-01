@@ -12,6 +12,9 @@ public class PetRequestDto {
     @NotBlank
     private String dateOfBirth;
 
+    @NotBlank
+    private String ownerId;
+
     public String getName() {
         return name;
     }
@@ -26,5 +29,13 @@ public class PetRequestDto {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 }

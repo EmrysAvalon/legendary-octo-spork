@@ -1,16 +1,15 @@
 package com.example.dierenarts.service;
 
 import com.example.dierenarts.dto.OwnerRequestDto;
-import com.example.dierenarts.dto.PetRequestDto;
 import com.example.dierenarts.exception.RecordNotFoundException;
 import com.example.dierenarts.model.Owner;
 import com.example.dierenarts.model.Pet;
 import com.example.dierenarts.repository.OwnerRepository;
+import com.example.dierenarts.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +18,7 @@ public class OwnerService {
     @Autowired
     private OwnerRepository repository;
     private PetService petService;
+    private PetRepository petRepository;
 
     public Iterable<Owner> getOwner(String name) {
         if (name.isEmpty()) {
@@ -38,6 +38,10 @@ public class OwnerService {
         }
     }
 
+    public Iterable<Pet> getPets(Long ownerId) {
+        return petService.getPetsByOwner(ownerId);
+    }
+
     public void deleteOwner(Long id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
@@ -54,7 +58,7 @@ public class OwnerService {
         return newOwner.getId();
     }
 
-    public void partialUpdatePet(Long id, Owner owner) {
+    public void partialUpdateOwner(Long id, Owner owner) {
         Optional<Owner> optionalOwner = repository.findById(id);
 
         if (optionalOwner.isPresent()) {
@@ -64,7 +68,19 @@ public class OwnerService {
             }
             repository.save(existingOwner);
         } else {
-            throw new RecordNotFoundException("There is no owner with this id");
+            throw new RecordNotFoundException("There is no owner with this id.");
+        }
+    }
+
+    public List<Pet> getOwnerPets(Long id) {
+        Optional<Owner> optionalOwner = repository.findById(id);
+
+        if (optionalOwner.isPresent()) {
+            Owner owner = optionalOwner.get();
+            return owner.getPets();
+        }
+        else {
+            throw new RecordNotFoundException("There is no owner with this id.");
         }
     }
 
