@@ -14,14 +14,7 @@ import java.time.LocalDate;
 @RestController
 public class PetController {
 
-// Example pets.
-// Olivia 2020-05-29
-// Oliver 2020-07-22
-// Pim 2020-08-19
-
-
     @Autowired
-    private PetRepository repository;
     private PetService service;
 
     @GetMapping(value = "/pets")
