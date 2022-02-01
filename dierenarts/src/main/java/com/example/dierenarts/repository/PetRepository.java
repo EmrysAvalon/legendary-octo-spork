@@ -7,4 +7,5 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 
     Iterable<Pet> findAllByName(String name);
     Iterable<Pet> findAllByNameContainingIgnoreCase(String name);
+    Iterable<Pet> findAllByOwner(String owner);
 }
