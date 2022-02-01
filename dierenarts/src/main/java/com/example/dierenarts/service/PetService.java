@@ -22,6 +22,10 @@ public class PetService {
         }
     }
 
+    public Iterable<Pet> getPetsByOwner(String owner) {
+        return repository.findAllByOwner(owner);
+    }
+
     public Pet getPet(Long id) {
         Optional<Pet> optionalPet = repository.findById(id);
 
@@ -33,7 +37,11 @@ public class PetService {
     }
 
     public void deletePet(Long id) {
-        repository.deleteById(id);
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+        } else {
+            throw new RecordNotFoundException("There is no pet with this id.");
+        }
     }
 
     public Long addPet(Pet pet) {
@@ -42,17 +50,23 @@ public class PetService {
     }
 
     public void partialUpdatePet(Long id, Pet pet) {
-        Pet existingPet = repository.findById(id).orElse(null);
+        Optional<Pet> optionalPet = repository.findById(id);
 
-        if (!pet.getName().isEmpty()) {
-            existingPet.setName(pet.getName());
+        if (optionalPet.isPresent()) {
+            Pet existingPet = repository.findById(id).orElse(null);
+            if (pet.getName() != null && !pet.getName().isEmpty()) {
+                existingPet.setName(pet.getName());
+            }
+            if (pet.getDateOfBirth() != null && !pet.getName().isEmpty()) {
+                existingPet.setDateOfBirth(pet.getDateOfBirth());
+            }
+            if (pet.getOwner() != null && !pet.getName().isEmpty()) {
+                existingPet.setOwner(pet.getOwner());
+            }
+            repository.save(existingPet);
+        } else {
+            throw new RecordNotFoundException("There is no pet with this id");
         }
-        if (!pet.getDateOfBirth().equals(null)) {
-            existingPet.setDateOfBirth(pet.getDateOfBirth());
-        }
-        if (!pet.getOwner().isEmpty()) {
-            existingPet.setOwner(pet.getOwner());
-        }
-        repository.save(existingPet);
     }
+
 }
