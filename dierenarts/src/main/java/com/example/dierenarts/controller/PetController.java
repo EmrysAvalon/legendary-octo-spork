@@ -1,5 +1,6 @@
 package com.example.dierenarts.controller;
 
+import com.example.dierenarts.dto.PetRequestDto;
 import com.example.dierenarts.model.Pet;
 import com.example.dierenarts.repository.PetRepository;
 import com.example.dierenarts.service.PetService;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.time.LocalDate;
 
@@ -34,8 +36,8 @@ public class PetController {
     }
 
     @PostMapping(value = "/pets")
-    public ResponseEntity<Object> addPet(@RequestBody Pet pet) {
-        Long newId = service.addPet(pet);
+    public ResponseEntity<Object> addPet(@Valid @RequestBody PetRequestDto petRequestDto) {
+        Long newId = service.addPet(petRequestDto);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(newId).toUri();

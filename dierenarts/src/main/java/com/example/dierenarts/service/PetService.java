@@ -1,11 +1,14 @@
 package com.example.dierenarts.service;
 
+import com.example.dierenarts.dto.PetRequestDto;
 import com.example.dierenarts.exception.RecordNotFoundException;
 import com.example.dierenarts.model.Pet;
 import com.example.dierenarts.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 @Service
@@ -44,7 +47,12 @@ public class PetService {
         }
     }
 
-    public Long addPet(Pet pet) {
+    public Long addPet(PetRequestDto petRequestDto) {
+        Pet pet = new Pet();
+        pet.setName(petRequestDto.getName());
+        pet.setDateOfBirth(LocalDate.parse(petRequestDto.getDateOfBirth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        pet.setOwner("Tanja");
+
         Pet newPet = repository.save(pet);
         return newPet.getId();
     }
