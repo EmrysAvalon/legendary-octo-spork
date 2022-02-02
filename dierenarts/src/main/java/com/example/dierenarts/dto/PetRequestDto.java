@@ -1,7 +1,10 @@
 package com.example.dierenarts.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.time.LocalDate;
 
 public class PetRequestDto {
 
@@ -10,10 +13,11 @@ public class PetRequestDto {
     private String name;
 
     @NotBlank
-    private String dateOfBirth;
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    private LocalDate dateOfBirth;
 
     @NotBlank
-    private String ownerId;
+    private Long ownerId;
 
     public String getName() {
         return name;
@@ -23,19 +27,19 @@ public class PetRequestDto {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getOwnerId() {
+    public Long getOwnerId() {
         return ownerId;
     }
 
-    public void setOwnerId(String ownerId) {
+    public void setOwnerId(Long ownerId) {
         this.ownerId = ownerId;
     }
 }
