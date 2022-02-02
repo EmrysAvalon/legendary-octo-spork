@@ -1,6 +1,7 @@
 package com.example.dierenarts.controller;
 
 import com.example.dierenarts.dto.OwnerRequestDto;
+import com.example.dierenarts.model.Owner;
 import com.example.dierenarts.model.Pet;
 import com.example.dierenarts.service.OwnerService;
 import com.example.dierenarts.service.PetService;
@@ -41,6 +42,12 @@ public class OwnerController {
                 .buildAndExpand(newId).toUri();
 
         return ResponseEntity.created(location).build();
+    }
+
+    @PatchMapping(value = "/owners/{id}")
+    public ResponseEntity<Object> partialUpdateOwner(@PathVariable Long id, @RequestBody OwnerRequestDto owner) {
+        service.partialUpdateOwner(id, owner);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping(value = "/owners/{id}/pets")

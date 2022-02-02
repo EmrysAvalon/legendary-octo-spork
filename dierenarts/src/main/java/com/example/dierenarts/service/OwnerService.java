@@ -58,7 +58,7 @@ public class OwnerService {
         return newOwner.getId();
     }
 
-    public void partialUpdateOwner(Long id, Owner owner) {
+    public void partialUpdateOwner(Long id, OwnerRequestDto owner) {
         Optional<Owner> optionalOwner = repository.findById(id);
 
         if (optionalOwner.isPresent()) {

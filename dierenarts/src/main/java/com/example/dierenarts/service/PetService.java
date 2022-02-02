@@ -55,7 +55,7 @@ public class PetService {
         return newPet.getId();
     }
 
-    public void partialUpdatePet(Long id, Pet pet) {
+    public void partialUpdatePet(Long id, PetRequestDto pet) {
         Optional<Pet> optionalPet = repository.findById(id);
 
         if (optionalPet.isPresent()) {
@@ -66,8 +66,12 @@ public class PetService {
             if (pet.getDateOfBirth() != null && !pet.getName().isEmpty()) {
                 existingPet.setDateOfBirth(pet.getDateOfBirth());
             }
-            if (pet.getOwner() != null && !pet.getName().isEmpty()) {
-                existingPet.setOwner(pet.getOwner());
+            if (pet.getOwnerId() != null && !pet.getName().isEmpty()) {
+                if (ownerService.getOwner(pet.getOwnerId()) != null){
+                    existingPet.setOwner(ownerService.getOwner(pet.getOwnerId()));
+                } else {
+                    throw new RecordNotFoundException("There is no owner with this id.");
+                }
             }
             repository.save(existingPet);
         } else {

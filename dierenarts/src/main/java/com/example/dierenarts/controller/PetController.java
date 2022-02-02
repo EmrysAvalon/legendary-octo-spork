@@ -46,7 +46,7 @@ public class PetController {
     }
 
     @PatchMapping(value = "/pets/{id}")
-    public ResponseEntity<Object> partialUpdatePet(@PathVariable Long id, @RequestBody Pet pet) {
+    public ResponseEntity<Object> partialUpdatePet(@PathVariable Long id, @RequestBody PetRequestDto pet) {
         service.partialUpdatePet(id, pet);
         return ResponseEntity.noContent().build();
     }
