@@ -76,6 +76,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(PATCH,"/users/{^[\\w]$}/password").authenticated()
                 .antMatchers(GET,"/users/**").hasRole(ADMIN)
                 .antMatchers(DELETE, "/users/**").hasRole(ADMIN)
+                .antMatchers(GET, "/files/**").hasRole(ADMINISTRATIVE_WORKER)
+                .antMatchers(POST, "/upload/**").hasRole(ADMINISTRATIVE_WORKER)
                 .antMatchers(GET, "/owners/**/pets").hasRole(RECEPTIONIST)
                 .antMatchers(PATCH, "/pets/**").hasRole(ADMINISTRATIVE_WORKER)
                 .antMatchers(POST, "/pets/**").hasRole(ADMINISTRATIVE_WORKER)
