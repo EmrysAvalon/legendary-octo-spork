@@ -14,6 +14,7 @@ public class PetService {
 
     @Autowired
     private PetRepository repository;
+    @Autowired
     private OwnerService ownerService;
 
     public Iterable<Pet> getPets(String name) {

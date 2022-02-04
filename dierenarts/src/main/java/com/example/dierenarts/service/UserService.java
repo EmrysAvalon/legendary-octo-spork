@@ -156,7 +156,8 @@ public class UserService {
     }
 
     public void setPassword(String username, String password) {
-        if (username.equals(getCurrentUserName())) {
+        boolean hasAdminPermission = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toString().contains("ROLE_ADMIN");
+        if (username.equals(getCurrentUserName()) | hasAdminPermission) {
             if (isValidPassword(password)) {
                 Optional<User> userOptional = userRepository.findById(username);
                 if (userOptional.isPresent()) {
