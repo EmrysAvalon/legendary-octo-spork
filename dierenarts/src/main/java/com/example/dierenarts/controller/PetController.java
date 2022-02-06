@@ -1,8 +1,6 @@
 package com.example.dierenarts.controller;
 
 import com.example.dierenarts.dto.PetRequestDto;
-import com.example.dierenarts.model.Pet;
-import com.example.dierenarts.repository.PetRepository;
 import com.example.dierenarts.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +9,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
-import java.time.LocalDate;
 
 @RestController
 public class PetController {

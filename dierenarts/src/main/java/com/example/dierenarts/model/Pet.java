@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Table(name = "pets")
@@ -45,6 +44,10 @@ public class Pet {
     }
 
     //Setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setName(String name){
         this.name = name;
     }

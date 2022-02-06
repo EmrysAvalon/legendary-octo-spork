@@ -1,10 +1,7 @@
 package com.example.dierenarts.controller;
 
 import com.example.dierenarts.dto.OwnerRequestDto;
-import com.example.dierenarts.model.Owner;
-import com.example.dierenarts.model.Pet;
 import com.example.dierenarts.service.OwnerService;
-import com.example.dierenarts.service.PetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

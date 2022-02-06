@@ -28,6 +28,10 @@ public class OwnerService {
         }
     }
 
+    public Iterable<Owner> getOwner() {
+        return repository.findAll();
+    }
+
     public Owner getOwner(Long id) {
         Optional<Owner> optionalOwner = repository.findById(id);
 

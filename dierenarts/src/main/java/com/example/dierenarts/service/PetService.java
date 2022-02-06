@@ -25,6 +25,10 @@ public class PetService {
         }
     }
 
+    public Iterable<Pet> getPets() {
+        return repository.findAll();
+    }
+
     public Iterable<Pet> getPetsByOwner(Long ownerId) {
         return repository.findAllByOwner(ownerService.getOwner(ownerId));
     }
