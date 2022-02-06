@@ -38,10 +38,6 @@ public class OwnerService {
         }
     }
 
-    public Iterable<Pet> getPets(Long ownerId) {
-        return petService.getPetsByOwner(ownerId);
-    }
-
     public void deleteOwner(Long id) {
         if (repository.existsById(id)) {
             repository.deleteById(id);
